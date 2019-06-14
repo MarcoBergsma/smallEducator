@@ -1,3 +1,2 @@
-# MijnInzetFE
-MijnInzet project SE HvA FE
-lol
+# SmallEducator
+Smalleducator project - AAD Course
