@@ -2,7 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import Login from "./components/Login.vue";
 import Home from "./views/Home.vue";
-import CreateVacancy from "./views/CreateVacancy.vue";
+import CreateCourse from "./views/CreateCourse.vue";
 
 Vue.use(Router);
 
@@ -25,9 +25,9 @@ export default new Router({
       component: Home,
     },
     {
-      path: "/createvacancy",
-      name: "createvacancy",
-      component: CreateVacancy
+      path: "/createcourse",
+      name: "createcourse",
+      component: CreateCourse
     }
   ]
 });

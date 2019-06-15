@@ -1,7 +1,14 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <v-container>
         <HeaderTitle title="Courses"></HeaderTitle>
-
+        <v-btn
+                @click="navigateTo({name: 'createcourse'})"
+                fab
+                dark
+                color="indigo darken-4"
+        >
+            <v-icon dark>add</v-icon>
+        </v-btn>
 
         <v-data-table
                 :headers="this.headers"
@@ -106,6 +113,9 @@
                     .then(response => {
                         this.content = response.data;
                     });
+            },
+            navigateTo(route) {
+                this.$router.push(route);
             }
         }
     }

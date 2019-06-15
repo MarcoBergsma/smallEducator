@@ -9,7 +9,7 @@
       </v-toolbar-title>
       <v-btn v-if="backButton" @click="back()" flat color="grey">
         <v-icon right>arrow_back</v-icon>
-        <span>Terug</span>
+        <span>Back</span>
       </v-btn>
       <v-spacer></v-spacer>
     </v-toolbar>
