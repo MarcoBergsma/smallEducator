@@ -8,4 +8,6 @@ router.get("/:courseId", courseController.getCourseById);
 
 router.post("/", courseController.postCourse);
 
+router.delete("/delete/:courseId", courseController.deleteCourse);
+
 module.exports = router;

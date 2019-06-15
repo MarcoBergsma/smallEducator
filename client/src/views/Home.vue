@@ -14,9 +14,14 @@
                 class="elevation-3"
         >
             <template v-slot:items="content">
-                <tr>
+                <tr v-on:click="deleteCourse(content.item.id)">
                     <td class="px-3">{{ content.item.title }}</td>
                     <td class="px-3">{{ content.item.description }}</td>
+                    <td class="px-3">
+                        <v-btn icon color="red">
+                            <v-icon>delete_forever</v-icon>
+                        </v-btn>
+                    </td>
                 </tr>
             </template>
         </v-data-table>
@@ -44,6 +49,11 @@
                         text: "Description",
                         sortable: true,
                         value: "description",
+                        class: "px-3"
+                    },
+                    {
+                        text: "Delete",
+                        sortable: false,
                         class: "px-3"
                     },
                 ],
@@ -76,12 +86,27 @@
             HeaderTitle
         },
         mounted() {
-            axios
-                .get("http://localhost:3000/api/course")
-                .then(response => {
-                    this.content = response.data;
-                    console.log(this.content);
-                });
+            this.getAllCourses();
+        },
+        methods: {
+            deleteCourse(id) {
+                axios
+                    .delete('http://localhost:3000/api/course/delete/' + id)
+                    .then(response => {
+                        if (response.status === 200) {
+                            this.getAllCourses();
+                        }
+                    }).catch(error => {
+                    console.log(error)
+                })
+            },
+            getAllCourses() {
+                axios
+                    .get("http://localhost:3000/api/course")
+                    .then(response => {
+                        this.content = response.data;
+                    });
+            }
         }
     }
 </script>
