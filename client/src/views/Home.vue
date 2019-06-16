@@ -129,7 +129,9 @@
                     .delete('http://localhost:3000/api/course/delete/' + id)
                     .then(response => {
                         if (response.status === 200) {
-                            this.getAllCourses();
+                            const index = this.content.findIndex(post => post.id === id) // find the post index
+                            if (~index) // if the post exists in array
+                                this.content.splice(index, 1) //delete the post
                         }
                     }).catch(error => {
                     console.log(error)
