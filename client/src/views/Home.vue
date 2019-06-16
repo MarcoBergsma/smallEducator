@@ -21,11 +21,11 @@
                 class="elevation-3"
         >
             <template v-slot:items="content">
-                <tr v-on:click="deleteCourse(content.item.id)">
+                <tr @click="showModal(content.item)">
                     <td class="px-3">{{ content.item.title }}</td>
                     <td class="px-3">{{ content.item.description }}</td>
                     <td class="px-3">
-                        <v-btn icon color="red">
+                        <v-btn v-on:click="deleteCourse(content.item.id)" icon color="red">
                             <v-icon>delete_forever</v-icon>
                         </v-btn>
                     </td>
@@ -35,6 +35,27 @@
         <div class="text-xs-right pt-2">
             <v-pagination v-model="pagination.page" :length="pages" :total-visible="7" color="black"></v-pagination>
         </div>
+        <v-dialog v-model="dialog" max-width="400">
+            <v-card>
+                <div class="topRow">
+                    <v-flex>
+                        <HeaderTitle title="Course" :subTitle="this.selected.name"></HeaderTitle>
+                    </v-flex>
+                </div>
+                <v-card-text>
+                    <div class="informationRow">
+                        <div class="information">
+                            <strong>Description:</strong>
+                            {{this.selected.description}}
+                        </div>
+                        <div class="information" max-width="50px">
+                            <strong>Invite code:</strong>
+                            {{this.selected.inviteCode}}
+                        </div>
+                    </div>
+                </v-card-text>
+            </v-card>
+        </v-dialog>
     </v-container>
 </template>
 
@@ -45,6 +66,8 @@
     export default {
         data() {
             return {
+                selected: [],
+                dialog: false,
                 headers: [
                     {
                         text: "Title",
@@ -96,7 +119,12 @@
             this.getAllCourses();
         },
         methods: {
+            showModal(item) {
+                this.selected = item;
+                this.dialog = true;
+            },
             deleteCourse(id) {
+                event.cancelBubble = true;
                 axios
                     .delete('http://localhost:3000/api/course/delete/' + id)
                     .then(response => {

@@ -26,7 +26,8 @@ exports.postCourse = (req, res) => {
 
     const newCourse = Model.Course.create({
         title: req.body.title,
-        description: req.body.description
+        description: req.body.description,
+        inviteCode: req.body.inviteCode
     }).then(course => res.status(200).json(course))
         .catch(error => res.status(400).send(console.log(error)));
 };

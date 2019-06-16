@@ -44,10 +44,14 @@
         data: () => ({
             title: "",
             titleRules: [
-                v => !!v || "Titel is verplicht",
-                v => (v && v.length <= 255) || "Titel moet korter zijn dan 255 karakters"
+                v => !!v || "Title is required",
+                v => (v && v.length <= 255) || "Title must be less than 255 characters"
             ],
-            description: ""
+            description: "",
+            descriptionRules: [
+                v => !!v || "Description is required",
+                v => (v && v.length <= 255) || "Description must be less than 255 characters"
+            ]
         }),
         components: {
             HeaderTitle,
@@ -61,7 +65,8 @@
                             "http://localhost:3000/api/Course",
                             {
                                 title: this.title,
-                                description: this.description
+                                description: this.description,
+                                inviteCode: this.generateInviteCode(this.title)
                             }
                         )
                         .then(response => {
@@ -85,6 +90,18 @@
                         "clear"
                     );
                 }
+            },
+            generateInviteCode(title) {
+                var matches = title.match(/\b(\w)/g); //Matches first letter of each word.
+                console.log("Length: " + matches.length);
+                if (matches.length <= 1) { //1 Letter is not really enough to make the code consistently unique
+                    title = title.substring(0, 3); //Get the first 3 letters from the title
+                    console.log("In if: " + title);
+                } else {
+                    title = matches.join(''); //Join the letters together
+                    console.log("In else: " + title);
+                }
+                return new Date().getFullYear() + "_" + title + Math.floor(Math.random() * 101);
             }
         }
     };

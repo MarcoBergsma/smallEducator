@@ -16,6 +16,11 @@ module.exports = {
                 type: type.STRING,
                 allowNull: false
             },
+            inviteCode: {
+                type: type.STRING,
+                allowNull: false,
+                unique: true
+            },
             createdAt: {
                 allowNull: false,
                 type: type.DATE,

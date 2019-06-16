@@ -13,6 +13,10 @@ module.exports = (sequelize, type) => {
         description: {
             type: type.STRING,
             allowNull: false
+        },
+        inviteCode: {
+            type: type.STRING,
+            allowNull: false
         }
     })
 

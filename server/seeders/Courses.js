@@ -10,6 +10,7 @@ module.exports = {
             const seedData = {
                 title: faker.random.word(),
                 description: faker.random.words(),
+                inviteCode: faker.lorem.word(),
                 createdAt: new Date(),
                 updatedAt: new Date()
             };
